@@ -3,8 +3,10 @@ package challenge_superchat.dk.chattcontroller;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import antlr.collections.List;
@@ -15,8 +17,9 @@ import challenge_superchat.dk.chattmodel.Conversations;
 import challenge_superchat.dk.chattmodel.Message;
 import challenge_superchat.dk.chattmodel.User;
 
-
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
+@RequestMapping("/api")
 public class ChattRestController {
 
 	
@@ -37,7 +40,7 @@ public class ChattRestController {
 
     @GetMapping("/contacts")
     public List listContacts(Message message) {
-        return (List) userDao.findAll();
+        return null;
     }
 
 	@PostMapping("/message")
