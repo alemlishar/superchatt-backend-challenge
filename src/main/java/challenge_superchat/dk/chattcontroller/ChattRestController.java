@@ -2,10 +2,15 @@ package challenge_superchat.dk.chattcontroller;
 
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import antlr.collections.List;
+import challenge_superchat.dk.chattdao.ConversationDao;
+import challenge_superchat.dk.chattdao.MessageDao;
+import challenge_superchat.dk.chattdao.UserDao;
 import challenge_superchat.dk.chattmodel.Conversations;
 import challenge_superchat.dk.chattmodel.Message;
 import challenge_superchat.dk.chattmodel.User;
@@ -15,14 +20,24 @@ import challenge_superchat.dk.chattmodel.User;
 public class ChattRestController {
 
 	
+	@Autowired
+	UserDao userDao;
+	
+	@Autowired
+	MessageDao messageDao;
+	
+	@Autowired
+	ConversationDao conversationDao;
+	
+	
 	@PostMapping("/contacts")
     public  Set<User> createContacts() {
         return null;
     }
 
     @GetMapping("/contacts")
-    public boolean listContacts(Message message) {
-        return true;
+    public List listContacts(Message message) {
+        return (List) userDao.findAll();
     }
 
 	@PostMapping("/message")
