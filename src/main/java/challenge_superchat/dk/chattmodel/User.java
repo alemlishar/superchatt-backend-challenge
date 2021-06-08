@@ -6,6 +6,14 @@ import javax.persistence.*;
 public class User {
 
 	
+	public User(User context) {
+        this.email = context.getEmail();
+        this.idUser = context.getId();
+        this.name = context.getName();
+        
+    }
+
+	
 	@Id
 	@Column(name = "idUser")
 	@GeneratedValue(strategy = GenerationType.AUTO)
