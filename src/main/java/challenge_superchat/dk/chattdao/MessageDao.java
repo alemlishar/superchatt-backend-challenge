@@ -8,5 +8,6 @@ import challenge_superchat.dk.chattmodel.Message;
 @Repository
 public interface MessageDao extends CrudRepository<Message, Long>{
 
+	
 
 }

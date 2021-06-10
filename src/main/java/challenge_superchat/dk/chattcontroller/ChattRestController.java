@@ -54,27 +54,40 @@ public class ChattRestController {
             return "User Created" + user.getName();
 
 		} catch (ServiceClientException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         return "User not Created";
     }
 
+	
     @GetMapping("/contacts")
     public List<User> listContacts() {
+    	 
     	List<User> userList = new ArrayList<>();
-         userList.addAll(contactsServiceImpl.getContactList());
-         return userList;
+        userList.addAll(contactsServiceImpl.getContactList());
+         
+    	 return userList;
     }
 
-	@PostMapping("/message")
-    public  boolean sendMessage(Message message) {
-		return conversationServiceImpl.sendMessage(message);
-		 
+	
+    @PostMapping("/message")
+    public  String sendMessage(@Valid @RequestBody Message message) {
+		
+		
+		 if(conversationServiceImpl.sendMessage(message) == true)
+			 return "Message Sent Successfuly";
+		 else 
+			 return "Message not Sent Successfuly";
+
     }
 	
-	@PostMapping("/conversations")
-    public  Set<Conversations> listConversations() {
-        return null;
+	
+    @PostMapping("/conversations")
+    public  List<String> listConversations(@Valid @RequestBody User user) {
+		List<String> userConversations = conversationServiceImpl.getUserConversation(user);
+		if(userConversations.isEmpty())
+			userConversations.add("You Dont have Conversations Before");
+		
+        return userConversations;
     }
 }

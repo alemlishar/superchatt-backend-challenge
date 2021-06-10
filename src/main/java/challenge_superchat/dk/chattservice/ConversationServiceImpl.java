@@ -25,24 +25,48 @@ public class ConversationServiceImpl implements ConversationService {
 	
 
 	@Transactional
-	public List<Conversations> getUserConversation(User user) {
+	public List<String> getUserConversation(User user) {
 		// TODO Auto-generated method stub
+		
+		//messageDao.fin
 		return null;
 	}
 
 	@Transactional
 	public Boolean sendMessage(Message message) {
 		// TODO Auto-generated method stub
+		System.out.println(message.getIdReciepnt() + message.getMessageBody() + message.getIdSender());
 	   
 	   Conversations conversation = new Conversations();
 	   conversation.setIdReciepnt(message.getIdReciepnt());
 	   conversation.setIdSender(message.getIdSender());
 
 	   Conversations conv = conversationDao.save(conversation);
-	   Message msg = messageDao.save(message);
+	   Message msg = new Message();
+	   msg.setIdReciepnt(message.getIdReciepnt());
+	   msg.setIdSender(message.getIdSender());
+	   msg.setMessageBody(message.getMessageBody());
+	  //       msg.setId(message.getIdSender() + message.getIdReciepnt());
+	   //	   if(conv.getId() != 0) {
+	   //	   msg.getConversations().setId(conv.getId());	   
+		msg  = messageDao.save(message);
+	   //		}
+	   
+		return msg.getId() !=0;
+	}
 
-		   
-		return msg!=null;
+	
+	
+	@Override
+	public Message convertPlaceholers(Message message) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean checkConversationExisted(Message message) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

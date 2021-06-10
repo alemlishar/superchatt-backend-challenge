@@ -23,19 +23,19 @@ public class Message {
 	
 	
 	public Message(Message context) {
-        this.id = context.getIdMsg();
+        this.id = context.getId();
         this.messageBody = context.getMessageBody();
         this.Conversations = context.getConversations();
         this.idReciepnt = context.getIdReciepnt();
         this.idSender = context.getIdSender();
         
     }
-	public Message(long id, String msgBody,  Conversations conversation) {
+	public Message(long id, String msgBody,  Conversations conversation, long sid, long rid) {
         this.id = id;
-        
+        this.Conversations =  conversation;
         this.messageBody = msgBody;
-        this.Conversations = conversation;
-        
+        this.idSender = sid;
+        this.idReciepnt = rid;
     }
 	
 	public Message() { }
@@ -59,11 +59,11 @@ public class Message {
 	@JoinColumn(name = "idc")
     Conversations Conversations;
 
-	public long getIdMsg() {
+	public long getId() {
 		return id;
 	}
-	public void setIdMsg(long idMsg) {
-		this.id = idMsg;
+	public void setId(long id) {
+		this.id = id;
 	}
 	public String getMessageBody() {
 		return messageBody;
@@ -90,7 +90,6 @@ public class Message {
 		Conversations = conversations;
 	}
 
-	
 	
 	
 	
