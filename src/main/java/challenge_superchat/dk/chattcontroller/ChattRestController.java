@@ -1,5 +1,6 @@
 package challenge_superchat.dk.chattcontroller;
 
+import java.lang.System.Logger;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,9 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,11 +26,13 @@ import challenge_superchat.dk.chattmodel.Conversations;
 import challenge_superchat.dk.chattmodel.Message;
 import challenge_superchat.dk.chattmodel.User;
 import challenge_superchat.dk.chattservice.ContactsServiceImpl;
+import challenge_superchat.dk.chattservice.ConversationServiceImpl;
+import challenge_superchat.dk.exceptions.CustomException;
+import challenge_superchat.dk.exceptions.ResourceAlreadyExist;
 import challenge_superchat.dk.exceptions.ServiceClientException;
 
-@CrossOrigin(origins = "http://localhost:8080")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 public class ChattRestController {
 
 	
@@ -35,29 +40,24 @@ public class ChattRestController {
 	ContactsServiceImpl contactsServiceImpl;
 	
 	@Autowired
-	MessageDao messageDao;
-	
-	@Autowired
-	ConversationDao conversationDao;
+	ConversationServiceImpl conversationServiceImpl;
 	
 	
 	@PostMapping("/contacts")
-    public  ResponseEntity<?> createContacts(@RequestBody User user) {
+    public  String createContacts(@Valid @RequestBody User user) {
 		String userId = "";
+		System.out.println(user);
         try {
-        	if (user == null)
-                throw new ServiceClientException("The passed user is not valid for sign up");
+        	if (user != null)
 
              userId = contactsServiceImpl.CreateContact(user);
-
-            if (userId == null)
-                return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+            return "User Created" + user.getName();
 
 		} catch (ServiceClientException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        return ResponseEntity.created(URI.create("http://127.0.0.1:8080/users/" + userId)).build();
+        return "User not Created";
     }
 
     @GetMapping("/contacts")
@@ -68,8 +68,9 @@ public class ChattRestController {
     }
 
 	@PostMapping("/message")
-    public  boolean sendMessage() {
-        return true;
+    public  boolean sendMessage(Message message) {
+		return conversationServiceImpl.sendMessage(message);
+		 
     }
 	
 	@PostMapping("/conversations")

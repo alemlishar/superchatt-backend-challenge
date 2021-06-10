@@ -16,8 +16,10 @@ import challenge_superchat.dk.exceptions.ServiceClientException;
 @Service
 public class ContactsServiceImpl implements ContactService
 {
-	private final UserDao userDao;
-
+	@Autowired
+	private UserDao userDao;
+	
+	
     public ContactsServiceImpl(UserDao userDao1) {
         this.userDao = userDao1;
     }

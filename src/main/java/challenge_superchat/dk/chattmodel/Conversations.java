@@ -1,77 +1,56 @@
 package challenge_superchat.dk.chattmodel;
 
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Conversations")
 public class Conversations {
 	
-	@Id
-	@Column(name = "idConv")
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long idConv;	
 	
-	@Column(name = "msgid")
-	private String idMessage;
+	public Conversations () { }
+	
+	@Id
+	@Column(name = "idc")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long idc;	
 	
 	@Column(name = "senderid")
-	private String idSender;
+	private long idSender;
 	
 	@Column(name = "recieverid")
-	private String idReciepnt;
+	private long idReciepnt;
 
-	@OneToMany(fetch = FetchType.LAZY,mappedBy="Conversations")
-    private Set<Message> messagesList;
+	
 	
 	public long getId() {
-		return idConv;
+		return idc;
 	}
 
 	public void setId(long id) {
-		this.idConv = id;
+		this.idc = id;
 	}
 
-	public String getIdMessage() {
-		return idMessage;
-	}
-
-	public void setIdMessage(String idMessage) {
-		this.idMessage = idMessage;
-	}
-
-	public String getIdSender() {
+	public long getIdSender() {
 		return idSender;
 	}
 
-	public void setIdSender(String idSender) {
+	public void setIdSender(long idSender) {
 		this.idSender = idSender;
 	}
 
-	public String getIdReciepnt() {
+	public long getIdReciepnt() {
 		return idReciepnt;
 	}
 
-	public void setIdReciepnt(String idReciepnt) {
+	public void setIdReciepnt(long idReciepnt) {
 		this.idReciepnt = idReciepnt;
 	}
 
-	public Set<Message> getMessages() {
-		return messagesList;
-	}
-
-	public void setMessages(Set<Message> messages) {
-		this.messagesList = messages;
-	}
-
-
+	
 	
 }

@@ -7,12 +7,19 @@ public class User {
 
 	
 	public User(User context) {
-        this.email = context.getEmail();
         this.idUser = context.getId();
         this.name = context.getName();
+        this.email = context.getEmail();
         
     }
-
+	public User(long id, String name,  String email) {
+        this.idUser = id;
+        this.name = name;
+        this.email = email;
+        
+    }
+	
+	public User() { }
 	
 	@Id
 	@Column(name = "idUser")

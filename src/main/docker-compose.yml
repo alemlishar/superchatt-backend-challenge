@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+  app:
+    image: 'docker-superchatt-backend-challenge:latest'
+    build:
+      context: .
+    container_name: app
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql-container:5432/DbSuperchat
+      - SPRING_DATASOURCE_USERNAME=postgres 
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+          
+  db:
+    image: 'postgres:12.7-alpine'
+    restart: always
+    ports:
+      - '5432:5432'
+    container_name: db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
