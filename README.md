@@ -10,7 +10,7 @@
 
 *Running the program
 
- *step1(packaging) optional
+ #Step1(packaging) optional
 
         firstly we nned to be in root folder and execute 
 
@@ -18,7 +18,7 @@
 
         this create superchat-backend-challenge-0.0.1.jar 
 
- *step 2
+ #Step2
  
         inside src/main/docker folder there is dockerfile, 
 
@@ -33,7 +33,7 @@
    
    docker build -t application
          
- *step 2.5(Very important  DATABASE)
+ #Step2.5(Very important  DATABASE)
  
         we dont have up working database, lets build from docker image and run the database
          
@@ -46,7 +46,7 @@
           Lets create the databse and finish the step
           create databse postgres
           
- *step 3()
+ #Step3()
  
         now lets containeraized and run the service for both the application and postgers database
       
