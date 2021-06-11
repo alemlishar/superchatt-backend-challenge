@@ -1,6 +1,5 @@
 package challenge_superchat.dk.chattmodel;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,10 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "messages")
@@ -25,14 +21,13 @@ public class Message {
 	public Message(Message context) {
         this.id = context.getId();
         this.messageBody = context.getMessageBody();
-        this.Conversations = context.getConversations();
+        this.conversations = context.getConversations();
         this.idReciepnt = context.getIdReciepnt();
         this.idSender = context.getIdSender();
         
     }
-	public Message(long id, String msgBody,  Conversations conversation, long sid, long rid) {
-        this.id = id;
-        this.Conversations =  conversation;
+	public Message(String msgBody,  Conversations conversation, long sid, long rid) {
+        this.conversations =  conversation;
         this.messageBody = msgBody;
         this.idSender = sid;
         this.idReciepnt = rid;
@@ -54,10 +49,10 @@ public class Message {
 	@Column(name = "recieverid")
 	private long idReciepnt;
 	
-    @OnDelete(action = OnDeleteAction.CASCADE)
-	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Conversations.class)     
+   // @OnDelete(action = OnDeleteAction.CASCADE)
+	@ManyToOne(fetch = FetchType.LAZY)//, targetEntity = Conversations.class)     
 	@JoinColumn(name = "idc")
-    Conversations Conversations;
+    private Conversations conversations;
 
 	public long getId() {
 		return id;
@@ -84,11 +79,13 @@ public class Message {
 		this.idReciepnt = idReciepnt;
 	}
 	public Conversations getConversations() {
-		return Conversations;
+		return conversations;
 	}
 	public void setConversations(Conversations conversations) {
-		Conversations = conversations;
+		this.conversations = conversations;
 	}
+
+	
 
 	
 	

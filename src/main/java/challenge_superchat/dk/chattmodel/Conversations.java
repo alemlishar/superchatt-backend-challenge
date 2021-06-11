@@ -1,10 +1,14 @@
 package challenge_superchat.dk.chattmodel;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -14,6 +18,16 @@ public class Conversations {
 	
 	public Conversations () { }
 	
+	
+	public Conversations(long idc, long idSender, long idReciepnt, List<Message> messages) {
+		super();
+		this.idc = idc;
+		this.idSender = idSender;
+		this.idReciepnt = idReciepnt;
+		this.messages = messages;
+	}
+
+
 	@Id
 	@Column(name = "idc")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,14 +39,15 @@ public class Conversations {
 	@Column(name = "recieverid")
 	private long idReciepnt;
 
-	
-	
-	public long getId() {
+    @OneToMany(mappedBy="conversations")
+    private List<Message> messages;
+
+	public long getIdc() {
 		return idc;
 	}
 
-	public void setId(long id) {
-		this.idc = id;
+	public void setIdc(long idc) {
+		this.idc = idc;
 	}
 
 	public long getIdSender() {
@@ -51,6 +66,17 @@ public class Conversations {
 		this.idReciepnt = idReciepnt;
 	}
 
+	public List<Message> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(List<Message> messages) {
+		this.messages = messages;
+	}
 	
+	
+	
+
+
 	
 }

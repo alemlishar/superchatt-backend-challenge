@@ -1,7 +1,7 @@
 package challenge_superchat.dk.chattservice;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,6 @@ import challenge_superchat.dk.chattdao.ConversationDao;
 import challenge_superchat.dk.chattdao.MessageDao;
 import challenge_superchat.dk.chattmodel.Conversations;
 import challenge_superchat.dk.chattmodel.Message;
-import challenge_superchat.dk.chattmodel.User;
 
 @Service
 public class ConversationServiceImpl implements ConversationService {
@@ -25,48 +24,75 @@ public class ConversationServiceImpl implements ConversationService {
 	
 
 	@Transactional
-	public List<String> getUserConversation(User user) {
-		// TODO Auto-generated method stub
-		
-		//messageDao.fin
-		return null;
-	}
-
-	@Transactional
 	public Boolean sendMessage(Message message) {
 		// TODO Auto-generated method stub
-		System.out.println(message.getIdReciepnt() + message.getMessageBody() + message.getIdSender());
 	   
 	   Conversations conversation = new Conversations();
 	   conversation.setIdReciepnt(message.getIdReciepnt());
 	   conversation.setIdSender(message.getIdSender());
 
 	   Conversations conv = conversationDao.save(conversation);
-	   Message msg = new Message();
-	   msg.setIdReciepnt(message.getIdReciepnt());
-	   msg.setIdSender(message.getIdSender());
-	   msg.setMessageBody(message.getMessageBody());
-	  //       msg.setId(message.getIdSender() + message.getIdReciepnt());
-	   //	   if(conv.getId() != 0) {
-	   //	   msg.getConversations().setId(conv.getId());	   
-		msg  = messageDao.save(message);
-	   //		}
+		System.out.println("conversation id in conv " + conv.getIdc());
+		Message msg = new Message(message.getMessageBody(), conv, message.getIdSender(), message.getIdReciepnt());
 	   
-		return msg.getId() !=0;
+		   if(messageDao.save(msg) != null)
+			   return true;
+		   else
+			   return false;
+
 	}
 
 	
-	
-	@Override
-	public Message convertPlaceholers(Message message) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public boolean checkConversationExisted(Message message) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		
+		@Transactional
+		public List<String> getUserConversation(long idc) {
+			String emptyConv = "You have no Conversation so far";
+			
+			List<Message> messages = messageDao.searchUserConversations(idc);
+			List<String> adjustedConversation = new ArrayList<String>() ;
+			adjustedConversation = constructUserConversations(messages);
+			if(adjustedConversation != null)
+				return adjustedConversation;
+			else
+				adjustedConversation.add(emptyConv);
+				return adjustedConversation;
+			
+		}
+		
+		@Override
+		public Message convertPlaceholers(Message message) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public boolean checkConversationExisted(Message message) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+
+		@SuppressWarnings("null")
+		@Override
+		public List<String> constructUserConversations(List<Message> messages) {
+				List<String> conversationList = null;
+				
+				for (Message msg : messages) {
+					conversationList.add(msg.getMessageBody());
+					
+				}
+			
+			
+			return conversationList;
+		}
+
+
+		
+
+
+		
+
+
 
 }
