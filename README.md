@@ -1,44 +1,65 @@
 # superchatt-backend-challenge
-jdk 1.6
-maven
-Docker
-Springboot
-Hibernate
 
-Running the program
+.Technology stack
 
-step1(packaging) optional
+ .jdk 1.6
+ .maven
+ .Docker
+ .Springboot
+ .Hibernate
 
-firstly we nned to be in root folder and execute 
+*Running the program
 
- mvn clean package -Dmaven.test.skip=true
+ *step1(packaging) optional
 
-this create superchat-backend-challenge-0.0.1.jar 
+        firstly we nned to be in root folder and execute 
 
-step 2
-inside src/main/docker folder there is dockerfile, 
+   mvn clean package -Dmaven.test.skip=true
 
-docker.txt
-[FROM adoptopenjdk:16-jre-hotspot
-EXPOSE 8089
-ARG JAR_FILE=*.jar
-LABEL maintainer="alextopten03@gmail.com"
-COPY ${JAR_FILE} application.jar
-ENTRYPOINT ["java", "-jar", "application.jar"] ]
+        this create superchat-backend-challenge-0.0.1.jar 
 
-docker build -t application .
+ *step 2
+ 
+        inside src/main/docker folder there is dockerfile, 
 
-this command execute superchat-backend-challenge-0.0.1.jar and build a docker image from the dockerfile
+               docker.txt
+               [FROM adoptopenjdk:16-jre-hotspot
+               EXPOSE 8089
+               ARG JAR_FILE=*.jar
+               LABEL maintainer="alextopten03@gmail.com"
+               COPY ${JAR_FILE} application.jar
+               ENTRYPOINT ["java", "-jar", "application.jar"] ] .
+        this command execute superchat-backend-challenge-0.0.1.jar and build a docker image from the dockerfile
+   
+   docker build -t application
+         
+ *step 2.5(Very important  DATABASE)
+ 
+        we dont have up working database, lets build from docker image and run the database
+         
+   docker run -d -p 5432:5432 --name localpostgres -e POSTGRES_PASSWORD=postgres postgres:12.7
+             
+              -d : run it in detached mode,
+              --name : container a name (localpostgres) , to be used in step 3
+               postgres:12.7 : is the version to be run when the container upon
+                     
+          Lets create the databse and finish the step
+          create databse postgres
+          
+ *step 3()
+ 
+        now lets containeraized and run the service for both the application and postgers database
+      
+   docker run -d -p 8089:8089 --name application --link localpostgres:postgres application
+   docker run -d -p 5432:5432 --name localpostgres -e POSTGRES_PASSWORD=postgres postgres:12.7
+   
+        we created and run this two container
+          
+                localpostgres: on port 5432  postgresl databse
+                application:   on port 8089  superchat-Backend-Challenge rest api 
 
 
-now lets containeraized and run the service for both the application and postgers database
+# Done!!!
 
 
-
-
-
-execute thefollowing command to run the superchat-backend-challenge
-
-docker run -d -p 8089:8089 --name application --link localpostgres:postgres application
-docker run -d -p 5432:5432 --name localpostgres -e POSTGRES_PASSWORD=postgres postgres:12.7
 
