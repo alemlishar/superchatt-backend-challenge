@@ -1,16 +1,16 @@
-# superchatt-backend-challenge
+superchatt-backend-challenge
 
-.Technology stack
+**Technology stack
 
- .jdk 1.6
- .maven
- .Docker
- .Springboot
- .Hibernate
+     .jdk 1.6
+     .maven
+     .Docker version 20
+     .Springboot version 3.77
+     .Hibernate
 
-*Running the program
+ --Running the program
 
- #Step1(packaging) optional
+ ##Step1(packaging) optional
 
         firstly we nned to be in root folder and execute 
 
