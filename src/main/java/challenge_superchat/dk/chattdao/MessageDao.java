@@ -14,6 +14,6 @@ public interface MessageDao extends CrudRepository<Message, Long>{
 
 	
 
-	@Query(value = "SELECT msgs FROM messages msgs WHERE msgs.idc = :idc")
-    List<Message> searchUserConversations(@Param("idc") long idc );
+	@Query(value = "SELECT * FROM messages  WHERE idc = :idc", nativeQuery = true)
+    List<Message> searchUserConversations(@Param("idc") Long idc );
 }

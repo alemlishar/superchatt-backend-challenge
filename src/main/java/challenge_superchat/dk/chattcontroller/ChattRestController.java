@@ -76,12 +76,14 @@ public class ChattRestController {
 	
 	
    
-    @GetMapping("/conversations/{id}")
+    @GetMapping("/conversations/{idc}")
     @ResponseBody
-    public  List<String> listConversations(@Valid @PathVariable("idc")  Long userId) {
-		List<String> userConversations = conversationServiceImpl.getUserConversation(userId);
+    public  List<Message> listConversations(@Valid @PathVariable("idc")  Long idc) {
+		var  userConversations = (List<Message>) conversationServiceImpl.getUserConversation(idc);
+		var emptyConveration = new Message();
+		emptyConveration.setMessageBody("you have empty conversation list");
 		if(userConversations.isEmpty())
-			userConversations.add("You Dont have Conversations Before");
+			userConversations.add(emptyConveration);
 		
         return userConversations;
     }

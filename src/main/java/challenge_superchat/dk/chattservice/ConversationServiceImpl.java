@@ -46,17 +46,16 @@ public class ConversationServiceImpl implements ConversationService {
 
 		
 		@Transactional
-		public List<String> getUserConversation(long idc) {
-			String emptyConv = "You have no Conversation so far";
+		public List<Message> getUserConversation(long idc) {
+			//String emptyConv = "You have no Conversation so far";
 			
-			List<Message> messages = messageDao.searchUserConversations(idc);
-			List<String> adjustedConversation = new ArrayList<String>() ;
-			adjustedConversation = constructUserConversations(messages);
-			if(adjustedConversation != null)
-				return adjustedConversation;
+			 List<Message> messages = new ArrayList<Message>();
+			 messages = messageDao.searchUserConversations(idc);
+			
+			if(messages != null)
+				return messages;
 			else
-				adjustedConversation.add(emptyConv);
-				return adjustedConversation;
+				return messages;
 			
 		}
 		
