@@ -1,14 +1,15 @@
 superchatt-backend-challenge
 
-** Technology stack
+# Technology stack
 
-     .jdk 1.6
+     .jdk 1.16
      .maven
      .Docker version 20
      .Springboot version 3.77
      .Hibernate
+     .Postgresql 12.7
 
- --Running the program
+ -- Running the program
 
  ## Step1(packaging) optional
 
