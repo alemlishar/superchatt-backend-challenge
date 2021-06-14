@@ -26,8 +26,6 @@ public class ContactsServiceImpl implements ContactService
 
 	@Override
 	public String CreateContact(User context) throws ServiceClientException {
-		// TODO Auto-generated method stub
-		
 
 		        if (context == null)
 		            throw new ServiceClientException("The user sign up context cannot be null");

@@ -13,4 +13,5 @@ public interface ConversationService {
 	public boolean checkConversationExisted(Message message);
 	public List<String> constructUserConversations(List<Message> messages);
 	public List<Message> getUserConversation(long idc);
+	public Conversations countNumberOfConversation(long senderId, long recieverId);
 }

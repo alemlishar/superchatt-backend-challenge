@@ -19,6 +19,13 @@ public class Conversations {
 	public Conversations () { }
 	
 	
+	public Conversations(long idSender, long idReciepnt) {
+		super();
+		this.idSender = idSender;
+		this.idReciepnt = idReciepnt;
+	}
+
+
 	public Conversations(long idc, long idSender, long idReciepnt, List<Message> messages) {
 		super();
 		this.idc = idc;
