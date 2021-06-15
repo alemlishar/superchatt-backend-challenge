@@ -2,7 +2,6 @@ package challenge_superchat.dk.chattmodel;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -80,10 +79,21 @@ public class Conversations {
 	public void setMessages(List<Message> messages) {
 		this.messages = messages;
 	}
-	
-	
-	
 
+
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return super.equals(obj);
+	}
+
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
+	}
+	
 
 	
 }

@@ -1,10 +1,15 @@
 package challenge_superchat.dk.chattservice;
 
 import java.util.Collection;
-import java.util.List;
 
 import challenge_superchat.dk.chattmodel.User;
 import challenge_superchat.dk.exceptions.ServiceClientException;
+/**
+ * 
+ * @author Utente 1
+ * @implNote user creation, listing contacts and getting user by email
+ *
+ */
 
 public interface ContactService {
 

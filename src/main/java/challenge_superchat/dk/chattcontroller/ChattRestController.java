@@ -20,72 +20,93 @@ import challenge_superchat.dk.chattservice.ContactsServiceImpl;
 import challenge_superchat.dk.chattservice.ConversationServiceImpl;
 
 import challenge_superchat.dk.exceptions.ServiceClientException;
-
+/**
+ * 
+ * @author Alemayehu
+ * @apiNote Superchatt chatt Controller 
+ * @version 0.1
+ *
+ */
 @RestController
 @RequestMapping("/api/v1")
 public class ChattRestController {
 
-	
+
 	@Autowired
 	ContactsServiceImpl contactsServiceImpl;
-	
+
 	@Autowired
 	ConversationServiceImpl conversationServiceImpl;
-	
-	
-	
-	
-	@PostMapping("/contacts")
-    public  String createContacts(@Valid @RequestBody User user) {
-		String userId = "";
-		System.out.println(user);
-        try {
-        	if (user != null)
 
-             userId = contactsServiceImpl.CreateContact(user);
-            return "User Created" + user.getName();
+	/**
+	 * 	
+	 * @param user, User profile(Nmae, email)
+	 * @return String, User creation with the id to use for sending message
+	 */
+
+
+	@PostMapping("/contacts")
+	public  String createContacts(@Valid @RequestBody User user) {
+		@SuppressWarnings("unused")
+		String userId;
+		System.out.println(user);
+		try {
+			if (user != null)
+			{
+				userId = contactsServiceImpl.CreateContact(user);
+				return user.getName() + "Username: " +  userId + "created" ;
+			}
 
 		} catch (ServiceClientException e) {
 			e.printStackTrace();
 		}
-        return "User not Created";
-    }
+		return "User Existed with this user profile, try with another Email or Name";
+	}
 
-	
-	
-    @GetMapping("/contacts")
-    public List<User> listContacts() {
-    	 
-    	List<User> userList = new ArrayList<>();
-        userList.addAll(contactsServiceImpl.getContactList());
-         
-    	 return userList;
-    }
+	/**
+	 * 	
+	 * @param empty
+	 * @return User Lists
+	 * 
+	 */	
 
-	
-    
-    @PostMapping("/message")
-    public  String sendMessage(@Valid @RequestBody Message message) {
-		
-		 if(conversationServiceImpl.sendMessage(message) == true)
-			 return "Message Sent Successfuly";
-		 else 
-			 return "Message not Sent Successfuly";
+	@GetMapping("/contacts")
+	public List<User> listContacts() {
 
-    }
-	
-	
-   
-    @GetMapping("/conversations/{idc}")
-    @ResponseBody
-    public  List<Message> listConversations(@Valid @PathVariable("idc")  Long idc) {
-		var  userConversations = (List<Message>) conversationServiceImpl.getUserConversation(idc);
-		var emptyConveration = new Message();
-		emptyConveration.setMessageBody("you have empty conversation list");
-		if(userConversations.isEmpty())
-			userConversations.add(emptyConveration);
-		
-        return userConversations;
-    }
+		List<User> userList = new ArrayList<>();
+		userList.addAll(contactsServiceImpl.getContactList());
+
+		return userList;
+	}
+
+	/**
+	 * 
+	 * @param message  has id sender, id reciever, messagebody(can have placeholders)
+	 * @return String, notify successfull or un successful message delivery
+	 */
+
+
+	@PostMapping("/message")
+	public  String sendMessage(@Valid @RequestBody Message message) {
+
+		if(conversationServiceImpl.sendMessage(message) == true)
+			return "Message Sent Successfuly";
+		else 
+			return "Message not Sent Successfuly";
+
+	}
+
+	/**
+	 * 
+	 * @param idc, user id to be retrived during message creation
+	 * @return  List of conversations the user had done since registration
+	 */
+	@GetMapping("/conversations/{idc}")
+	@ResponseBody
+	public  String[] listConversations(@Valid @PathVariable("idc")  Long idc) {
+		var  userConversations = conversationServiceImpl.getUserConversation(idc);
+
+		return userConversations;
+	}
 
 }

@@ -18,6 +18,12 @@ public class Message {
 
 	
 	
+	public Message(String messageBody, long idSender, long idReciepnt) {
+		super();
+		this.messageBody = messageBody;
+		this.idSender = idSender;
+		this.idReciepnt = idReciepnt;
+	}
 	public Message(Message context) {
         this.id = context.getId();
         this.messageBody = context.getMessageBody();

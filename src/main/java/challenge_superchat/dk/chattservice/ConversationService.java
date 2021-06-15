@@ -4,14 +4,13 @@ import java.util.List;
 
 import challenge_superchat.dk.chattmodel.Conversations;
 import challenge_superchat.dk.chattmodel.Message;
-import challenge_superchat.dk.chattmodel.User;
 
 public interface ConversationService {
 	
 	public Boolean sendMessage(Message message);
-	public Message convertPlaceholers(Message message);
-	public boolean checkConversationExisted(Message message);
+	public String convertPlaceholers(Message message);
 	public List<String> constructUserConversations(List<Message> messages);
-	public List<Message> getUserConversation(long idc);
+	public String[] getUserConversation(long idc);
 	public Conversations countNumberOfConversation(long senderId, long recieverId);
+	public Message bitCoinTodayExchangeRate(Message message);
 }
