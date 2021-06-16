@@ -11,7 +11,7 @@ superchatt-backend-challenge
 
  -- Running the program
 
- ## Step1(packaging) optional
+ ## Step1[optional, packaging jar , the jar already existed in /target/superchat-backend-challenge-0.0.1.jar] optional
 
         firstly we nned to be in root folder and execute 
 
@@ -19,7 +19,7 @@ superchatt-backend-challenge
 
         this create superchat-backend-challenge-0.0.1.jar 
 
- # Step2
+ # Step2 [important, crerate a docker image using the dockerfile in -src/main-/docker/dockerfile]
  
         inside src/main/docker folder there is dockerfile, 
 
@@ -34,7 +34,7 @@ superchatt-backend-challenge
    
    docker build -t application
          
- # Step2.5(Very important  DATABASE)
+ # Step2.5[Very important,  DATABASE]
  
         we dont have up working database, lets build from docker image and run the database
          
@@ -47,7 +47,7 @@ superchatt-backend-challenge
           Lets create the databse and finish the step
           create databse postgres
           
- # Step3()
+ # Step3[very important, running the service and database as a docker image]
  
         now lets containeraized and run the service for both the application and postgers database
       
