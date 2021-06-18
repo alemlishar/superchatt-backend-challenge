@@ -4,22 +4,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class ResourceNotFoundException extends RuntimeException{
+public class ContactNotFoundException extends RuntimeException{
 	
 	 /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public ResourceNotFoundException() {
+	public ContactNotFoundException() {
 	        super();
 	    }
 
-	    public ResourceNotFoundException(String message) {
+	    public ContactNotFoundException(String message) {
 	        super(message);
 	    }
 
-	    public ResourceNotFoundException(String message, Throwable cause) {
+	    public ContactNotFoundException(String message, Throwable cause) {
 	        super(message, cause);
 	    }
 }

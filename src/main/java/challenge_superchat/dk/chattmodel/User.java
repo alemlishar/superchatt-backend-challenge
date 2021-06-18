@@ -1,6 +1,12 @@
 package challenge_superchat.dk.chattmodel;
 import javax.persistence.*;
-
+/**
+ * 
+ * @author Alemayehu
+ * apiNote Contact(User) Model
+ * 
+ *
+ */
 @Entity
 @Table(name = "Contacts")
 public class User {
@@ -56,5 +62,7 @@ public class User {
 	public void setId(long id) {
 		this.idUser = id;
 	}
+	
+	
 
 }

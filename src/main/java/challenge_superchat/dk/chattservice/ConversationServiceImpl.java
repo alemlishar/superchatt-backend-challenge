@@ -14,6 +14,13 @@ import challenge_superchat.dk.chattdao.MessageDao;
 import challenge_superchat.dk.chattmodel.Conversations;
 import challenge_superchat.dk.chattmodel.Message;
 
+/**
+ * 
+ * @author Alemayehu 
+ * @implNote Conversation service implementation(listing contact conversation, send message)
+ *
+ */
+
 @Service
 public class ConversationServiceImpl implements ConversationService {
 

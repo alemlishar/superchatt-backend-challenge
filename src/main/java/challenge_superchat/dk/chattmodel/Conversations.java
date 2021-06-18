@@ -10,6 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * 
+ * @author Alemayehu 1
+ * @apiNote conversationModel
+ *
+ */
+
 @Entity
 @Table(name = "Conversations")
 public class Conversations {

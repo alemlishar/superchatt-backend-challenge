@@ -19,11 +19,14 @@ import challenge_superchat.dk.chattmodel.User;
 import challenge_superchat.dk.chattservice.ContactsServiceImpl;
 import challenge_superchat.dk.chattservice.ConversationServiceImpl;
 
-import challenge_superchat.dk.exceptions.ServiceClientException;
 /**
  * 
  * @author Alemayehu
- * @apiNote Superchatt chatt Controller 
+ * @apiNote Superchatt chatt Controller
+ * ( 	*create contact,
+ * 		*Get All contacts,
+ * 		*Send Message to Reciever,
+ * 		*List specific User Conversations) 
  * @version 0.1
  *
  */
@@ -50,15 +53,10 @@ public class ChattRestController {
 		@SuppressWarnings("unused")
 		String userId;
 		System.out.println(user);
-		try {
-			if (user != null)
-			{
-				userId = contactsServiceImpl.CreateContact(user);
-				return user.getName() + "Username: " +  userId + "created" ;
-			}
-
-		} catch (ServiceClientException e) {
-			e.printStackTrace();
+		if (user != null)
+		{
+			userId = contactsServiceImpl.CreateContact(user);
+			return user.getName() + "Username: " +  userId + "created" ;
 		}
 		return "User Existed with this user profile, try with another Email or Name";
 	}
